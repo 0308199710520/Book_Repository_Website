@@ -1,0 +1,30 @@
+import uuid
+from django.urls import reverse
+
+# Create your models here.
+
+class ProductStockListing(models.Model):
+    product_Type
+
+
+class ProductDetails(models.Model):
+    """This product represents the detailed view of the product"""
+    product_ID = models.AutoField(primary_key=True)
+    product_Name = models.CharField(max_length= 20)
+    product_Price = models.FloatField(max_length=6)
+    product_Summary = models.CharField(max_length=200)
+    product_Stock = models.IntegerField()
+    product_Image = models.ImageField()
+
+    def __str__(self):
+        return self.product_Name
+
+    def get_absolute_url(self):
+        return reverse("product-detail", args=[str(self.product_ID)])
+
+#class Product_Listing(models.Model, ProductDetails):
+#    """this model represents the listing view of the product"""
+#    product_Description = models.CharField(max_length=100)
+
+class ProductInBasket(models.Model):
+    product_UUID = models.UUIDField()
